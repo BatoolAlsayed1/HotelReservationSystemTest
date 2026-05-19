@@ -115,4 +115,56 @@ public class HotelReservationSystemRoomTest {
         assertFalse(system.deleteRoom(101));
         assertEquals(0, system.getRoomsCount());
     }
+
+    @Test
+    public void testAddRoomWithNegativeRoomNumber() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(-1, "Single", 50.0);
+        boolean result = system.addRoom(room);
+        assertFalse(result);
+        assertEquals(0, system.getRoomsCount());
+    }
+
+    @Test
+    public void testAddRoomWithNullType() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(101, null, 50.0);
+        boolean result = system.addRoom(room);
+        assertFalse(result);
+        assertEquals(0, system.getRoomsCount());
+    }
+
+    @Test
+    public void testAddRoomWithNegativePrice() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(101, "Single", -20);
+        boolean result = system.addRoom(room);
+        assertFalse(result);
+        assertEquals(0, system.getRoomsCount());
+    }
+
+    @Test
+    public void testRoomCountAfterAddingOneRoom() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(101, "Single", 50.0);
+        system.addRoom(room);
+        assertEquals(1, system.getRoomsCount());
+    }
+
+    @Test
+    public void testRoomCountAfterInvalidRoom() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(-1, "Single", 50.0);
+        system.addRoom(room);
+        assertEquals(0, system.getRoomsCount());
+    }
+
+    @Test
+    public void testRoomCountAfterDeletingRoom() {
+        HotelReservationSystem system = new HotelReservationSystem();
+        Room room = new Room(101, "Single", 50.0);
+        system.addRoom(room);
+        system.deleteRoom(101);
+        assertEquals(0, system.getRoomsCount());
+    }
 }
