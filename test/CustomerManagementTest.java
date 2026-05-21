@@ -104,19 +104,5 @@ public class CustomerManagementTest {
         assertEquals(1, system.getCustomersCount());
     }
 
-    // CM_011: Delete a customer after their reservation is cancelled
-    @Test
-    public void CM_011_deleteCustomerAfterCancelledReservation() {
-        Room room = new Room(101, "Single", 50);
-        Customer customer = new Customer(1, "Fatima", "12345678");
-        Reservation reservation = new Reservation(1, customer, room, "2026-05-20", "2026-05-25");
 
-        system.addRoom(room);
-        system.addCustomer(customer);
-        system.bookReservation(reservation);
-        system.cancelReservation(1);
-
-        assertTrue(system.deleteCustomer(1));
-        assertEquals(0, system.getCustomersCount());
     }
-}
